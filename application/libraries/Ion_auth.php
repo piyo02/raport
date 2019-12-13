@@ -401,6 +401,15 @@ class Ion_auth
 		}
 		return NULL;
 	}
+	public function get_school_id()
+	{
+		$user_id = $this->get_user_id();
+		$this->load->model('schools_model');
+		$school = $this->schools_model->school_by_user_id( $user_id )->row();
+		$school_id = $school->id;
+
+		return $school_id;
+	}
 
 	/**
 	 * @param int|string|bool $id

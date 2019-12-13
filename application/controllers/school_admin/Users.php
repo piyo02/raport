@@ -1,12 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users extends Uadmin_Controller 
+class Users extends School_admin_Controller 
 {
+	private $school_id = "";
 	private $services = null;
     private $name = null;
-    private $parent_page = 'uadmin';
-	private $current_page = 'uadmin/users/';
+    private $parent_page = 'school_admin';
+	private $current_page = 'school_admin/users/';
 	private $_user_groups = array();
 
 	public function __construct()
@@ -20,6 +21,12 @@ class Users extends Uadmin_Controller
 			"transporter" => 'Transporter',
 		);
 		
+		$this->load->model(array(
+			'schools_model',
+			'teacher_profile_model',
+		));
+		$this->school_id = $this->ion_auth->get_school_id();	
+		$this->data['menu_list_id'] = 'users_index';
 	} 
 	public function index( $id_user = NULL )
 	{
@@ -35,10 +42,7 @@ class Users extends Uadmin_Controller
 		 if ($pagination['total_records']>0) $this->data['pagination_links'] = $this->setPagination($pagination);
 
 		$table = $this->services->get_table_config( $this->current_page );
-		$table[ "rows" ] = $this->ion_auth->users_limit( $pagination['limit_per_page'], $pagination['start_record'], 3  )->result();
-		// var_dump($table[ "rows" ]); die;
-		// unset( $table[ "rows" ][0] );
-		// unset( $table[ "rows" ][1] );
+		$table[ "rows" ] = $this->ion_auth->users_limit( $pagination['limit_per_page'], $pagination['start_record'], 5  )->result();
 		$table = $this->load->view('templates/tables/plain_table', $table, true);
 		$this->data[ "contents" ] = $table;
 
@@ -135,6 +139,11 @@ class Users extends Uadmin_Controller
 
         if ($this->form_validation->run() === TRUE && ( $user_id =  $this->ion_auth->register($identity, $password, $email,$additional_data, [$group_id], $identity_mode ) ) )
         {
+			$teacher_profile = array(
+				'user_id' => $user_id,
+				'nip' => $this->input->post('nip'),
+			);
+			$this->teacher_profile_model->create( $teacher_profile );
             $this->session->set_flashdata('alert', $this->alert->set_alert( Alert::SUCCESS, $this->ion_auth->messages() ) );
             // redirect( s_ite_url( $this->current_page.$this->ion_auth->group( $group_id )->row()->name)  );
             redirect( site_url( $this->current_page  )  );
@@ -152,8 +161,28 @@ class Users extends Uadmin_Controller
 			$this->data["header"] = "Tambah User ";
 			$this->data["sub_header"] = 'Klik Tombol Action Untuk Aksi Lebih Lanjut';
 
-            $form_data = $this->ion_auth->get_form_data();
-            $form_data = $this->load->view('templates/form/plain_form', $form_data , TRUE ) ;
+			$form_data = $this->ion_auth->get_form_data();
+			unset($form_data['form_data']['group_id']['options'][2]);
+			unset($form_data['form_data']['group_id']['options'][3]);
+			unset($form_data['form_data']['group_id']['options'][4]);
+			$form_teacher['form_data'] = array(
+				"school_id" => array(
+					'type' => 'hidden',
+					'label' => 'Sekolah',
+					'value' => $this->school_id,
+				),
+				"nip" => array(
+					'type' => 'text',
+					'label' => 'NIP',
+				),
+				"users_group" => array(
+					'type' => 'hidden',
+					'label' => 'users_group',
+					'value' => 5
+				),
+			);
+			$form_data['form_data'] = array_merge($form_data['form_data'], $form_teacher['form_data']);
+			$form_data = $this->load->view('templates/form/plain_form', $form_data , TRUE ) ;
 
             $this->data[ "contents" ] =  $form_data;
             

@@ -1,26 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Users extends Uadmin_Controller 
-{
+class Schools extends Uadmin_Controller {
 	private $services = null;
     private $name = null;
     private $parent_page = 'uadmin';
-	private $current_page = 'uadmin/users/';
-	private $_user_groups = array();
-
-	public function __construct()
-	{
+	private $current_page = 'uadmin/schools/';
+	
+	public function __construct(){
 		parent::__construct();
-		$this->load->library('services/User_services');
-		$this->services = new User_services;
-		$this->_user_groups = array(
-			"farmer" => 'Petani',
-			"suplier" => 'Suplier',
-			"transporter" => 'Transporter',
-		);
-		
-	} 
+		$this->load->library('services/Schools_services');
+		$this->services = new Schools_services;
+		$this->load->model(array(
+			'group_model',
+			'school_head_profile_model',
+			'schools_model',
+		));
+
+	}
 	public function index( $id_user = NULL )
 	{
 		 // 
@@ -35,7 +31,7 @@ class Users extends Uadmin_Controller
 		 if ($pagination['total_records']>0) $this->data['pagination_links'] = $this->setPagination($pagination);
 
 		$table = $this->services->get_table_config( $this->current_page );
-		$table[ "rows" ] = $this->ion_auth->users_limit( $pagination['limit_per_page'], $pagination['start_record'], 3  )->result();
+		$table[ "rows" ] = $this->school_head_profile_model->school_heads( )->result();
 		// var_dump($table[ "rows" ]); die;
 		// unset( $table[ "rows" ][0] );
 		// unset( $table[ "rows" ][1] );
@@ -61,45 +57,45 @@ class Users extends Uadmin_Controller
 		$this->data["sub_header"] = 'Klik Tombol Action Untuk Aksi Lebih Lanjut';
 		$this->render( "templates/contents/plain_content" );
 	}
-	// public function index( $user_groups = NULL )
-	// {
-	// 	$this->data[ "menu_list_id" ] = "users_".$user_groups ; 
-	// 	// echo $this->data[ "menu_list_id" ] ; return;
-	// 	// 
-	// 	 $page = ($this->uri->segment(4)) ? ($this->uri->segment(4) - 1) : 0;
-	// 	 //pagination parameter
-	// 	 $pagination['base_url'] = base_url( $this->current_page ) .'/index';
-	// 	 $pagination['total_records'] = $this->ion_auth->record_count() ;
-	// 	 $pagination['limit_per_page'] = 10;
-	// 	 $pagination['start_record'] = $page*$pagination['limit_per_page'];
-	// 	 $pagination['uri_segment'] = 4;
-	// 	 //set pagination
-	// 	 if ($pagination['total_records']>0) $this->data['pagination_links'] = $this->setPagination($pagination);
+	public function users( $user_groups = NULL )
+	{
+		$this->data[ "menu_list_id" ] = "users_".$user_groups ; 
+		// echo $this->data[ "menu_list_id" ] ; return;
+		// 
+		 $page = ($this->uri->segment(4)) ? ($this->uri->segment(4) - 1) : 0;
+		 //pagination parameter
+		 $pagination['base_url'] = base_url( $this->current_page ) .'/index';
+		 $pagination['total_records'] = $this->ion_auth->record_count() ;
+		 $pagination['limit_per_page'] = 10;
+		 $pagination['start_record'] = $page*$pagination['limit_per_page'];
+		 $pagination['uri_segment'] = 4;
+		 //set pagination
+		 if ($pagination['total_records']>0) $this->data['pagination_links'] = $this->setPagination($pagination);
 
-	// 	$table = $this->services->get_table_config( $this->current_page );
-	// 	$table[ "rows" ] = $this->ion_auth->users_limit( $pagination['limit_per_page'], $pagination['start_record'] , $user_groups )->result();
-	// 	$table = $this->load->view('templates/tables/plain_table', $table, true);
-	// 	$this->data[ "contents" ] = $table;
+		$table = $this->services->get_table_config( $this->current_page );
+		$table[ "rows" ] = $this->school_head_profile_model->school_heads( )->result();
+		$table = $this->load->view('templates/tables/plain_table', $table, true);
+		$this->data[ "contents" ] = $table;
 
-	// 	$link_add = 
-	// 	array(
-	// 		"name" => "Tambah",
-	// 		"type" => "link",
-	// 		"url" => site_url( $this->current_page."create/"),
-	// 		"button_color" => "primary",	
-	// 		"data" => NULL,
-	// 	);
-	// 	// $this->data[ "header_button" ] =  $this->load->view('templates/actions/link', $link_add, TRUE ); ;
-	// 	#################################################################3
-	// 	$alert = $this->session->flashdata('alert');
-	// 	$this->data["key"] = $this->input->get('key', FALSE);
-	// 	$this->data["alert"] = (isset($alert)) ? $alert : NULL ;
-	// 	$this->data["current_page"] = $this->current_page;
-	// 	$this->data["block_header"] = "";//$this->_user_groups[ $user_groups ];
-	// 	$this->data["header"] = "";//$this->_user_groups[ $user_groups ];
-	// 	$this->data["sub_header"] = 'Klik Tombol Action Untuk Aksi Lebih Lanjut';
-	// 	$this->render( "templates/contents/plain_content" );
-	// }
+		$link_add = 
+		array(
+			"name" => "Tambah",
+			"type" => "link",
+			"url" => site_url( $this->current_page."create/"),
+			"button_color" => "primary",	
+			"data" => NULL,
+		);
+		// $this->data[ "header_button" ] =  $this->load->view('templates/actions/link', $link_add, TRUE ); ;
+		#################################################################3
+		$alert = $this->session->flashdata('alert');
+		$this->data["key"] = $this->input->get('key', FALSE);
+		$this->data["alert"] = (isset($alert)) ? $alert : NULL ;
+		$this->data["current_page"] = $this->current_page;
+		$this->data["block_header"] = "";//$this->_user_groups[ $user_groups ];
+		$this->data["header"] = "";//$this->_user_groups[ $user_groups ];
+		$this->data["sub_header"] = 'Klik Tombol Action Untuk Aksi Lebih Lanjut';
+		$this->render( "templates/contents/plain_content" );
+	}
 
 	public function add()
     {
@@ -128,13 +124,40 @@ class Users extends Uadmin_Controller
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
             'address' => $this->input->post('address'),
-          );
+		  );
 		}
-		
+	
 		$identity_mode = NULL;
 
         if ($this->form_validation->run() === TRUE && ( $user_id =  $this->ion_auth->register($identity, $password, $email,$additional_data, [$group_id], $identity_mode ) ) )
         {
+			$school_head_profile = array(
+				'user_id' => $user_id,
+				'nip' => $this->input->post('nip'),
+			);
+			$this->school_head_profile_model->create( $school_head_profile );
+			
+			$school_admin_data = array(
+				'first_name' => 'Admin ',
+				'last_name' => $this->input->post('name'),
+				'email' => $this->input->post('school_admin_email'),
+				'phone' => $this->input->post('phone'),
+				'address' => $this->input->post('school_address'),
+			);
+			$school_admin_email = $this->input->post('school_admin_email');
+			$identity = $school_admin_email;
+
+			$password_school_admin = 'admin';
+			$school_admin_id = $this->ion_auth->register( $identity, $password_school_admin, $school_admin_email, $school_admin_data, [3], $identity_mode );
+
+			$school_profile = array(
+				'user_id' => $school_admin_id,
+				'school_head_id' => $user_id,
+				'name' => $this->input->post('name'),
+				'address' => $this->input->post('school_address'),
+			);
+			$this->schools_model->create( $school_profile );
+
             $this->session->set_flashdata('alert', $this->alert->set_alert( Alert::SUCCESS, $this->ion_auth->messages() ) );
             // redirect( s_ite_url( $this->current_page.$this->ion_auth->group( $group_id )->row()->name)  );
             redirect( site_url( $this->current_page  )  );
@@ -149,10 +172,11 @@ class Users extends Uadmin_Controller
 			$this->data["alert"] = (isset($alert)) ? $alert : NULL ;
 			$this->data["current_page"] = $this->current_page;
 			$this->data["block_header"] = "Tambah User ";
-			$this->data["header"] = "Tambah User ";
+			$this->data["header"] = "Tambah Kepala Sekolah ";
 			$this->data["sub_header"] = 'Klik Tombol Action Untuk Aksi Lebih Lanjut';
 
-            $form_data = $this->ion_auth->get_form_data();
+			// $form_data = $this->ion_auth->get_form_data();
+			$form_data = $this->services->get_form_data();
             $form_data = $this->load->view('templates/form/plain_form', $form_data , TRUE ) ;
 
             $this->data[ "contents" ] =  $form_data;

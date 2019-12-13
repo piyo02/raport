@@ -30,7 +30,8 @@
                             $attr =  date("d/m/Y", $row->$key ) ;
                         if( $key == 'month' && is_numeric( $row->$key )  )
                             $attr = Util::MONTH[ $row->$key ] ;
-
+                        if( $key == 'nisn' || $key == 'nis' )
+                            $attr = $row->$key ;
                         echo $attr;
                     ?>
                 </td>
