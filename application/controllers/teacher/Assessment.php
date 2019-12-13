@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Classroom extends School_admin_Controller {
+class Assessment extends Teacher_Controller {
 	private $school_id = "";
 	private $services = null;
     private $name = null;
-    private $parent_page = 'school_admin';
-	private $current_page = 'school_admin/classroom/';
+    private $parent_page = 'teacher';
+	private $current_page = 'teacher/assessment/';
 	
 	public function __construct(){
 		parent::__construct();
-		$this->load->library('services/Classroom_services');
-		$this->services = new Classroom_services;
+		$this->load->library('services/Assessment_services');
+		$this->services = new Assessment_services;
 		$this->load->model(array(
 			'group_model',
 			'courses_model',
@@ -19,7 +19,7 @@ class Classroom extends School_admin_Controller {
 			'classroom_model',
 		));
 		$this->school_id = $this->ion_auth->get_school_id();	
-		$this->data['menu_list_id'] = 'classroom_index';
+		$this->data['menu_list_id'] = 'assessment_index';
 	}
 	public function index()
 	{
@@ -75,7 +75,7 @@ class Classroom extends School_admin_Controller {
 
 		$add_menu= $this->load->view('templates/actions/modal_form', $add_menu, true ); 
 
-		$this->data[ "header_button" ] =  $add_menu;
+		// $this->data[ "header_button" ] =  $add_menu;
 		// return;
 		#################################################################3
 		$alert = $this->session->flashdata('alert');

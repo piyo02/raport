@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Courses extends School_admin_Controller {
+class Courses extends Teacher_Controller {
 	private $school_id = "";
 	private $services = null;
     private $name = null;
-    private $parent_page = 'school_admin';
-	private $current_page = 'school_admin/courses/';
+    private $parent_page = 'teacher';
+	private $current_page = 'teacher/courses/';
 	
 	public function __construct(){
 		parent::__construct();

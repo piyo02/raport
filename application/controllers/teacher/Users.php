@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users extends School_admin_Controller 
+class Users extends Teacher_Controller 
 {
 	private $school_id = "";
 	private $services = null;
     private $name = null;
-    private $parent_page = 'school_admin';
-	private $current_page = 'school_admin/users/';
+    private $parent_page = 'teacher';
+	private $current_page = 'teacher/users/';
 	private $_user_groups = array();
 
 	public function __construct()
