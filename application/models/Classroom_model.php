@@ -165,6 +165,20 @@ class Classroom_model extends MY_Model
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
+  public function classroom_by_user_id( $user_id= NULL )
+  {
+    $this->select($this->table . '.*');
+    $this->select('CONCAT(users.first_name, " ", users.last_name) AS homeroom_teacher');
+      if($user_id)
+        $this->where('user_id', $user_id);
+      $this->join(
+        'users',
+        'users.id = classroom.user_id',
+        'inner'
+      );
+      $this->order_by($this->table.'.id', 'asc');
+      return $this->fetch_data();
+  }
 
 }
 ?>

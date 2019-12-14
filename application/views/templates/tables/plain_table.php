@@ -58,6 +58,10 @@
                                                                 $value["data"] = $row;
                                                                 $this->load->view('templates/actions/modal_form', $value ); 
                                                             break;
+                                                        case "modal_form_get" :
+                                                            $value["data"] = $row;
+                                                            $this->load->view('templates/actions/modal_form_get', $value ); 
+                                                            break;
                                                         case "modal_form_multipart" :
                                                                 $value["data"] = $row;
                                                                 $this->load->view('templates/actions/modal_form_multipart', $value ); 

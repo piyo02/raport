@@ -146,7 +146,7 @@ class Courses_model extends MY_Model
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
-  public function courses_category_id( $start = 0 , $limit = NULL, $category_id = NULL )
+  public function courses_category_id( $start = 0 , $limit = NULL, $category_id = NULL, $school_id = NULL )
   {
       if (isset( $limit ))
       {
@@ -154,6 +154,8 @@ class Courses_model extends MY_Model
       }
       if ( $category_id )
         $this->where('category_id', $category_id);
+      if ( $school_id )
+        $this->where('school_id', $school_id);
 
       $this->offset( $start );
       $this->order_by($this->table.'.id', 'asc');

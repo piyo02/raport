@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Group_model extends MY_Model
+class Rating_final_model extends MY_Model
 {
-  protected $table = "groups";
+  protected $table = "rating_final";
 
   function __construct() {
       parent::__construct( $this->table );
@@ -101,7 +101,7 @@ class Group_model extends MY_Model
    * @return static
    * @author madukubah
    */
-  public function group( $id = NULL  )
+  public function rating_final( $id = NULL  )
   {
       if (isset($id))
       {
@@ -111,18 +111,18 @@ class Group_model extends MY_Model
       $this->limit(1);
       $this->order_by($this->table.'.id', 'desc');
 
-      $this->groups(  );
+      $this->rating_finals(  );
 
       return $this;
   }
   // /**
-  //  * groups
+  //  * rating_finals
   //  *
   //  *
   //  * @return static
   //  * @author madukubah
   //  */
-  // public function groups(  )
+  // public function rating_finals(  )
   // {
       
   //     $this->order_by($this->table.'.id', 'asc');
@@ -130,19 +130,33 @@ class Group_model extends MY_Model
   // }
 
   /**
-   * groups
+   * rating_finals
    *
    *
    * @return static
    * @author madukubah
    */
-  public function groups( $start = 0 , $limit = NULL )
+  public function rating_finals( $start = 0 , $limit = NULL )
   {
       if (isset( $limit ))
       {
         $this->limit( $limit );
       }
       $this->offset( $start );
+      $this->order_by($this->table.'.id', 'asc');
+      return $this->fetch_data();
+  }
+
+  public function rating_final_by_student_id( $student_id = NULL, $course_id = NULL )
+  {
+    if ($student_id)
+    {
+      $this->where( 'student_id', $student_id );
+    }
+    if ($course_id)
+    {
+      $this->where( 'course_id', $course_id );
+    }
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
