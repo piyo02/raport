@@ -21,12 +21,10 @@
                 ?>
               </div>
                 <ul class="nav nav-pills ml-auto p-2">
-                    <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Ulangan Harian</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">UTS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">UAS</a></li>
                     <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Sikap</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">UTS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">UAS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Predikat Sikap</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Rumus Raport</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab_4" data-toggle="tab">Predikat Nilai</a></li>
                 </ul>
             </div>
             <div class="card-body">
@@ -37,12 +35,12 @@
                                 <div class="col-2"></div>
                                 <div class="col-10">
                                     <div class="float-right">
-                                        <?php echo (isset( $header_button_test )) ? $header_button_test : '';  ?>
+                                        <?php echo (isset( $header_button_attitude )) ? $header_button_attitude : '';  ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php echo (isset($contents_test)) ? $contents_test : '';  ?>
+                        <?php echo (isset($contents_attitude)) ? $contents_attitude : '';  ?>
                         
                     </div>
                     <div class="tab-pane" id="tab_2">
@@ -51,12 +49,12 @@
                                 <div class="col-2"></div>
                                 <div class="col-10">
                                     <div class="float-right">
-                                        <?php echo (isset( $header_button_mid )) ? $header_button_mid : '';  ?>
+                                        <?php echo (isset( $header_button_predicate_attitude )) ? $header_button_predicate_attitude : '';  ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php echo (isset($contents_mid)) ? $contents_mid : '';  ?>
+                        <?php echo (isset($contents_predicate_attitude)) ? $contents_predicate_attitude : '';  ?>
                         
                     </div>
                     <div class="tab-pane" id="tab_3">
@@ -71,6 +69,20 @@
                             </div>
                         </div>
                         <?php echo (isset($contents_final)) ? $contents_final : '';  ?>
+                        
+                    </div>
+                    <div class="tab-pane" id="tab_4">
+                        <div class="col-12 mb-3">
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-10">
+                                    <div class="float-right">
+                                        <?php echo (isset( $header_button_predicate_rating )) ? $header_button_predicate_rating : '';  ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo (isset($contents_predicate_rating)) ? $contents_predicate_rating : '';  ?>
                         
                     </div>
                 </div>

@@ -303,6 +303,123 @@ class Assessment_services
     );
     return $table;
   }
+  public function get_table_attitude_config( $_page, $start_number = 1 )
+  {
+    $table["header"] = array(
+      'name' => 'Sikap',
+    );
+    $table["number"] = $start_number;
+    $table[ "action" ] = array(
+      array(
+        "name" => 'Edit',
+        "type" => "modal_form",
+        "modal_id" => "edit_attitude_",
+        "url" => site_url( $_page."edit"),
+        "button_color" => "primary",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => 'attitude_model'
+          ),
+          "name" => array(
+            'type' => 'text',
+            'label' => "Sikap",
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+      array(
+        "name" => 'X',
+        "type" => "modal_delete",
+        "modal_id" => "delete_attitude_",
+        "url" => site_url( $_page."delete"),
+        "button_color" => "danger",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => 'attitude_model'
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+    );
+    return $table;
+  }
+  public function get_table_predicate_config( $_page, $start_number = 1, $model = 'predicate_attitude_model' )
+  {
+    $table["header"] = array(
+      'name' => 'Predikat',
+      'description' => 'Keterangan',
+    );
+    $table["number"] = $start_number;
+    $table[ "action" ] = array(
+      array(
+        "name" => 'Edit',
+        "type" => "modal_form",
+        "modal_id" => "edit_".$model."_",
+        "url" => site_url( $_page."edit"),
+        "button_color" => "primary",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => $model
+          ),
+          "name" => array(
+            'type' => 'text',
+            'label' => "Predikat",
+          ),
+          "description" => array(
+            'type' => 'textarea',
+            'label' => "Keterangan",
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+      array(
+        "name" => 'X',
+        "type" => "modal_delete",
+        "modal_id" => "delete_".$model."_",
+        "url" => site_url( $_page."delete"),
+        "button_color" => "danger",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => $model
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+    );
+    return $table;
+  }
   public function validation_config( ){
     $config = array(
         array(

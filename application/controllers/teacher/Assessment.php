@@ -48,18 +48,21 @@ class Assessment extends Teacher_Controller {
 		$table[ "rows" ] = $this->classroom_model->classrooms_by_school_id( $pagination['start_record'], $pagination['limit_per_page'], $this->school_id )->result();
 		$table = $this->load->view('templates/tables/plain_table', $table, true);
 		$this->data[ "contents" ] = $table;
-		$add_menu = array(
-			"name" => "Lihat Perwalian",
-			// "modal_id" => "detail_",
-			"button_color" => "primary",
-			"url" => site_url( $this->current_page."add_classroom"),
-			'get' => "?classroom_id=" . $this->classroom_id->id,
-			'data' => NULL
-		);
-
-		$add_menu= $this->load->view('templates/actions/link', $add_menu, true ); 
-
-		$this->data[ "header_button" ] =  $add_menu;
+		
+		if(isset($this->classroom_id->id)){
+			$add_menu = array(
+				"name" => "Lihat Perwalian",
+				// "modal_id" => "detail_",
+				"button_color" => "primary",
+				"url" => site_url( $this->current_page."add_classroom"),
+				'get' => "?classroom_id=" . $this->classroom_id->id,
+				'data' => NULL
+			);
+	
+			$add_menu= $this->load->view('templates/actions/link', $add_menu, true ); 
+	
+			$this->data[ "header_button" ] =  $add_menu;
+		}
 		// return;
 		#################################################################3
 		$alert = $this->session->flashdata('alert');
