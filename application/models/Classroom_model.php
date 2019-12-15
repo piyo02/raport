@@ -179,6 +179,21 @@ class Classroom_model extends MY_Model
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
-
+  public function guardianship($user_id = NULL, $student_id = NULL)
+  {
+    $this->db->select('students.*');
+    // $this->db->select('students.id AS student_id');
+    $this->db->select('classroom.user_id');
+    $this->db->join(
+      'students',
+      'students.classroom_id = classroom.id',
+      'inner'
+    );
+    if($student_id)
+      $this->db->where('students.id', $student_id);
+    if($user_id)
+      $this->db->where('user_id', $user_id);
+    return $this->db->get('classroom');
+  }
 }
 ?>

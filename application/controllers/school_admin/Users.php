@@ -142,6 +142,7 @@ class Users extends School_admin_Controller
 			$teacher_profile = array(
 				'user_id' => $user_id,
 				'nip' => $this->input->post('nip'),
+				'school_id' => $this->school_id,
 			);
 			$this->teacher_profile_model->create( $teacher_profile );
             $this->session->set_flashdata('alert', $this->alert->set_alert( Alert::SUCCESS, $this->ion_auth->messages() ) );

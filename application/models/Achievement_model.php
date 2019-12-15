@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Courses_model extends MY_Model
+class Achievement_model extends MY_Model
 {
-  protected $table = "courses";
+  protected $table = "achievement";
 
   function __construct() {
       parent::__construct( $this->table );
-      parent::set_join_key( 'course_id' );
+      parent::set_join_key( 'menu_id' );
   }
 
   /**
@@ -71,11 +71,11 @@ class Courses_model extends MY_Model
   {
     //foreign
     //delete_foreign( $data_param. $models[]  )
-    if( !$this->delete_foreign( $data_param, ['menu_model'] ) )
-    {
-      $this->set_error("gagal");//('group_delete_unsuccessful');
-      return FALSE;
-    }
+    // if( !$this->delete_foreign( $data_param, ['menu_model'] ) )
+    // {
+    //   $this->set_error("gagal");//('group_delete_unsuccessful');
+    //   return FALSE;
+    // }
     //foreign
     $this->db->trans_begin();
 
@@ -101,7 +101,7 @@ class Courses_model extends MY_Model
    * @return static
    * @author madukubah
    */
-  public function course( $id = NULL  )
+  public function achievement( $id = NULL  )
   {
       if (isset($id))
       {
@@ -111,18 +111,18 @@ class Courses_model extends MY_Model
       $this->limit(1);
       $this->order_by($this->table.'.id', 'desc');
 
-      $this->courses(  );
+      $this->achievements(  );
 
       return $this;
   }
   // /**
-  //  * courses
+  //  * achievements
   //  *
   //  *
   //  * @return static
   //  * @author madukubah
   //  */
-  // public function courses(  )
+  // public function achievements(  )
   // {
       
   //     $this->order_by($this->table.'.id', 'asc');
@@ -130,13 +130,13 @@ class Courses_model extends MY_Model
   // }
 
   /**
-   * courses
+   * achievements
    *
    *
    * @return static
    * @author madukubah
    */
-  public function courses( $start = 0 , $limit = NULL )
+  public function achievements( $start = 0 , $limit = NULL )
   {
       if (isset( $limit ))
       {
@@ -146,27 +146,13 @@ class Courses_model extends MY_Model
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
-  public function courses_category_id( $start = 0 , $limit = NULL, $category_id = NULL, $school_id = NULL )
+  public function achievement_by_student_id( $student_id = NULL )
   {
-      if (isset( $limit ))
-      {
-        $this->limit( $limit );
-      }
-      if ( $category_id )
-        $this->where('category_id', $category_id);
-      if ( $school_id )
-        $this->where('school_id', $school_id);
+    if($student_id)
+      $this->where('student_id', $student_id);
+      $this->order_by($this->table.'.id', 'asc');
+      return $this->fetch_data();
+  }
 
-      $this->offset( $start );
-      $this->order_by($this->table.'.id', 'asc');
-      return $this->fetch_data();
-  }
-  public function courses_by_school_id( $school_id = NULL )
-  {
-      if ( $school_id )
-        $this->where('school_id', $school_id);
-      $this->order_by($this->table.'.id', 'asc');
-      return $this->fetch_data();
-  }
 }
 ?>

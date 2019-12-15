@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Group_model extends MY_Model
+class Rating_extracurricular_model extends MY_Model
 {
-  protected $table = "groups";
+  protected $table = "rating_extracurricular";
 
   function __construct() {
       parent::__construct( $this->table );
@@ -71,11 +71,11 @@ class Group_model extends MY_Model
   {
     //foreign
     //delete_foreign( $data_param. $models[]  )
-    if( !$this->delete_foreign( $data_param, ['menu_model'] ) )
-    {
-      $this->set_error("gagal");//('group_delete_unsuccessful');
-      return FALSE;
-    }
+    // if( !$this->delete_foreign( $data_param, ['menu_model'] ) )
+    // {
+    //   $this->set_error("gagal");//('group_delete_unsuccessful');
+    //   return FALSE;
+    // }
     //foreign
     $this->db->trans_begin();
 
@@ -101,7 +101,7 @@ class Group_model extends MY_Model
    * @return static
    * @author madukubah
    */
-  public function group( $id = NULL  )
+  public function rating_extracurricular( $id = NULL  )
   {
       if (isset($id))
       {
@@ -111,18 +111,18 @@ class Group_model extends MY_Model
       $this->limit(1);
       $this->order_by($this->table.'.id', 'desc');
 
-      $this->groups(  );
+      $this->rating_extracurriculars(  );
 
       return $this;
   }
   // /**
-  //  * groups
+  //  * rating_extracurriculars
   //  *
   //  *
   //  * @return static
   //  * @author madukubah
   //  */
-  // public function groups(  )
+  // public function rating_extracurriculars(  )
   // {
       
   //     $this->order_by($this->table.'.id', 'asc');
@@ -130,13 +130,13 @@ class Group_model extends MY_Model
   // }
 
   /**
-   * groups
+   * rating_extracurriculars
    *
    *
    * @return static
    * @author madukubah
    */
-  public function groups( $start = 0 , $limit = NULL )
+  public function rating_extracurriculars( $start = 0 , $limit = NULL )
   {
       if (isset( $limit ))
       {
@@ -145,6 +145,20 @@ class Group_model extends MY_Model
       $this->offset( $start );
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
+  }
+  public function rating_extracurricular_by_student_id( $student_id = NULL )
+  {
+    $this->select('rating_extracurricular.*');
+    $this->select('extracurricular.name AS extracurricular_name');
+    $this->join(
+      'extracurricular',
+      'extracurricular.id = rating_extracurricular.extracurricular_id',
+      'inner'
+    );
+    if($student_id)
+      $this->where('student_id', $student_id);
+      // $this->order_by($this->table.'.id', 'asc');
+    return $this->fetch_data();
   }
 
 }

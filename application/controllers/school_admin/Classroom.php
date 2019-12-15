@@ -219,6 +219,7 @@ class Classroom extends School_admin_Controller {
 		$this->form_validation->set_rules( $this->services->validation_config() );
         if ($this->form_validation->run() === TRUE )
         {
+			$data['user_id'] = $this->input->post( 'user_id' );
 			$data['name'] = $this->input->post( 'name' );
 			$data['description'] = $this->input->post( 'description' );
 

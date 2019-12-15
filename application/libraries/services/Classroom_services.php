@@ -101,7 +101,7 @@ class Classroom_services
                 "name" => 'Edit',
                 "type" => "modal_form",
                 "modal_id" => "edit_",
-                "url" => site_url( $_page."edit_category/"),
+                "url" => site_url( $_page."edit_classroom/"),
                 "button_color" => "primary",
                 "param" => "id",
                 "form_data" => array(
