@@ -420,6 +420,73 @@ class Assessment_services
     );
     return $table;
   }
+  public function get_table_formula_config( $_page, $start_number = 1 )
+  {
+    $table["header"] = array(
+      'name' => 'Penilaian',
+      'value' => 'Bobot',
+    );
+    $table["number"] = $start_number;
+    $table[ "action" ] = array(
+      array(
+        "name" => 'Edit',
+        "type" => "modal_form",
+        "modal_id" => "edit_rating_formula_",
+        "url" => site_url( $_page."edit"),
+        "button_color" => "primary",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => 'rating_formula_model'
+          ),
+          "name" => array(
+            'type' => 'select',
+            'label' => "Penilaian",
+            'options' => array(
+              'assignment' => 'Tugas',
+              'test' => 'Ulangan Harian',
+              'mid' => 'UTS',
+              'final' => 'UAS',
+            )
+          ),
+          "value" => array(
+            'type' => 'number',
+            'label' => "Bobot",
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+      array(
+        "name" => 'X',
+        "type" => "modal_delete",
+        "modal_id" => "delete_rating_formula_",
+        "url" => site_url( $_page."delete"),
+        "button_color" => "danger",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => 'rating_formula_model'
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+    );
+    return $table;
+  }
   public function validation_config( ){
     $config = array(
         array(

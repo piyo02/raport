@@ -18,7 +18,7 @@ class Assessment extends School_admin_Controller {
 			'predicate_attitude_model',
 			'predicate_rating_model',
 			'classroom_model',
-			'rating_test_model',
+			'rating_formula_model',
 			'rating_mid_model',
 			'rating_final_model',
 		));
@@ -101,6 +101,50 @@ class Assessment extends School_admin_Controller {
 
 		$this->data[ "header_button_predicate_attitude" ] =  $add_rating_predicate_attitude;
 
+		// Rumus Raport
+		$table_raport = $this->services->get_table_formula_config( $this->current_page, 1);
+		$table_raport[ "rows" ] = $this->rating_formula_model->rating_formula_by_school_id( $this->school_id )->result();
+		$table_raport = $this->load->view('templates/tables/plain_table', $table_raport, true);
+		$this->data[ "contents_raport" ] = $table_raport;
+
+		$add_raport = array(
+			"name" => "Tambah Rumus Raport",
+			"modal_id" => "add_raport_",
+			"button_color" => "primary",
+			"url" => site_url( $this->current_page."add/"),
+			"form_data" => array(
+				'model' => array(
+					'type' => 'hidden',
+					'label' => "model",
+					'value' => 'rating_formula_model',
+				),
+				"school_id" => array(
+					'type' => 'hidden',
+					'label' => "Id Sekolah",
+					'value' => $this->school_id,
+				),
+				"name" => array(
+					'type' => 'select',
+					'label' => "Penilaian",
+					'options' => array(
+						'assignment' => 'Tugas',
+						'test' => 'Ulangan Harian',
+						'mid' => 'UTS',
+						'final' => 'UAS',
+					)
+				),
+				"value" => array(
+					'type' => 'number',
+					'label' => "Bobot",
+				),
+			),
+			'data' => NULL
+		);
+
+		$add_raport= $this->load->view('templates/actions/modal_form', $add_raport, true ); 
+
+		$this->data[ "header_button_raport" ] =  $add_raport;
+
 		// Predikat Nilai
 		$table_predicate_rating = $this->services->get_table_predicate_config( $this->current_page, 1, 'predicate_rating_model');
 		$table_predicate_rating[ "rows" ] = $this->predicate_rating_model->Predicate_rating_by_school_id( $this->school_id )->result();
@@ -145,7 +189,7 @@ class Assessment extends School_admin_Controller {
 		$this->data["key"] = $this->input->get('key', FALSE);
 		$this->data["alert"] = (isset($alert)) ? $alert : NULL ;
 		$this->data["current_page"] = $this->current_page;
-		$this->data["block_header"] = "Kelas";
+		$this->data["block_header"] = "Aturan Penilaian";
 		$this->data["header"] = "Daftar Kelas";
 		$this->data["sub_header"] = 'Klik Tombol Action Untuk Aksi Lebih Lanjut';
 		$this->render( "school_admin/assessment" );
@@ -168,9 +212,8 @@ class Assessment extends School_admin_Controller {
 				case 'predicate_rating_model':
 					$data['description'] = $this->input->post( 'description' );
 					break;
-				
-				default:
-					# code...
+				case 'rating_formula_model':
+					$data['value'] = $this->input->post( 'value' );
 					break;
 			}
 			if( $this->$model->create( $data ) ){
@@ -204,9 +247,8 @@ class Assessment extends School_admin_Controller {
 				case 'predicate_rating_model':
 					$data['description'] = $this->input->post( 'description' );
 					break;
-				
-				default:
-					# code...
+				case 'rating_formula_model':
+					$data['value'] = $this->input->post( 'value' );
 					break;
 			}
 			$data_param['id'] = $this->input->post( 'id' );

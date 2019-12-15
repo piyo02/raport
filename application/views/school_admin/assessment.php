@@ -63,12 +63,12 @@
                                 <div class="col-2"></div>
                                 <div class="col-10">
                                     <div class="float-right">
-                                        <?php echo (isset( $header_button_final )) ? $header_button_final : '';  ?>
+                                        <?php echo (isset( $header_button_raport )) ? $header_button_raport : '';  ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php echo (isset($contents_final)) ? $contents_final : '';  ?>
+                        <?php echo (isset($contents_raport)) ? $contents_raport : '';  ?>
                         
                     </div>
                     <div class="tab-pane" id="tab_4">
