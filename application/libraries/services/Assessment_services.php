@@ -91,7 +91,7 @@ class Assessment_services
         "name" => 'Cetak Raport',
         "type" => "link",
         "modal_id" => "print_",
-        "url" => site_url( $_page."export_raport/"),
+        "url" => site_url( $_page. "export_raport/"),
         "button_color" => "success",
         "param" => "id",
         "title" => "Mata Pelajaran",

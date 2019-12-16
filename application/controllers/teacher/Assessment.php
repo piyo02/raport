@@ -103,6 +103,44 @@ class Assessment extends Teacher_Controller {
 		$table[ "rows" ] = $this->students_model->students_by_classroom_id( $pagination['start_record'], $pagination['limit_per_page'], $classroom_id )->result();
 		$table = $this->load->view('templates/tables/plain_table', $table, true);
 		$this->data[ "contents" ] = $table;
+		$add_menu = array(
+			"name" => "Tambah Siswa",
+			"modal_id" => "add_group_",
+			"button_color" => "primary",
+			"url" => site_url( $this->current_page."add_student/"),
+			"form_data" => array(
+				"school_id" => array(
+					'type' => 'hidden',
+					'label' => "Sekolah",
+					'value' => $this->school_id,
+				),
+				"classroom_id" => array(
+					'type' => 'hidden',
+					'label' => "Sekolah",
+					'value' => $classroom_id,
+				),
+				"name" => array(
+					'type' => 'text',
+					'label' => "Nama Siswa",
+					'value' => "",
+				),
+				"nis" => array(
+					'type' => 'text',
+					'label' => "NIS Siswa",
+					'value' => "",
+				),
+				"nisn" => array(
+					'type' => 'text',
+					'label' => "NISN Siswa",
+					'value' => "",
+				),
+			),
+			'data' => NULL
+		);
+
+		$add_menu= $this->load->view('templates/actions/modal_form', $add_menu, true ); 
+
+		$this->data[ "header_button" ] =  $add_menu;
 
 		#################################################################3
 		$alert = $this->session->flashdata('alert');
@@ -608,6 +646,37 @@ class Assessment extends Teacher_Controller {
 		$this->render( "teacher/assessment" );
 	}
 
+	public function add_student(  )
+	{
+		if( !($_POST) ) redirect(site_url(  $this->current_page ));  
+
+		// echo var_dump( $data );return;
+		$this->form_validation->set_rules( 'name', 'Nama Siswa', 'required|trim' );
+		$this->form_validation->set_rules( 'nis', 'NIS Siswa', 'required|trim' );
+		$this->form_validation->set_rules( 'nisn', 'NISN Siswa', 'required|trim' );
+        if ($this->form_validation->run() === TRUE )
+        {
+			$data['classroom_id'] = $this->input->post( 'classroom_id' );
+			$data['school_id'] = $this->input->post( 'school_id' );
+			$data['name'] = $this->input->post( 'name' );
+			$data['nis'] = $this->input->post( 'nis' );
+			$data['nisn'] = $this->input->post( 'nisn' );
+
+			if( $this->students_model->create( $data ) ){
+				$this->session->set_flashdata('alert', $this->alert->set_alert( Alert::SUCCESS, $this->students_model->messages() ) );
+			}else{
+				$this->session->set_flashdata('alert', $this->alert->set_alert( Alert::DANGER, $this->students_model->errors() ) );
+			}
+		}
+        else
+        {
+          $this->data['message'] = (validation_errors() ? validation_errors() : ($this->m_account->errors() ? $this->students_model->errors() : $this->session->flashdata('message')));
+          if(  validation_errors() || $this->students_model->errors() ) $this->session->set_flashdata('alert', $this->alert->set_alert( Alert::DANGER, $this->data['message'] ) );
+		}
+		
+		redirect( site_url($this->current_page) .'guardianship?classroom_id=' . $data['classroom_id'] );
+	}
+
 	public function add(  )
 	{
 		if( !($_POST) ) redirect(site_url(  $this->current_page ));  
@@ -775,5 +844,33 @@ class Assessment extends Teacher_Controller {
 		  $this->session->set_flashdata('alert', $this->alert->set_alert( Alert::DANGER, $this->$model->errors() ) );
 		}
 		redirect( site_url($this->current_page) .'assessment_course?id=' . $student_id . '&course_id=' . $course_id );
+	}
+
+	public function export_raport($student_id)
+	{
+		//profil sekolah, guru, murid
+		$this->data['school'] = '';
+		$this->data['teacher'] = '';
+		$this->data['student'] = '';
+
+		//nilai pengetahuan
+		$this->data['assignment'] = '';
+		$this->data['final'] = '';
+		$this->data['mid'] = '';
+		$this->data['test'] = '';
+
+		// nilai sikap, prestasi, ekskul, ketidakhadiran
+		$this->data['attitude'] = '';
+		$this->data['achievement'] = '';
+		$this->data['extracurricular'] = '';
+		$this->data['absence'] = $this->absence_model->absences_by_student_id($student_id)->row();
+		
+		$this->load->view('teacher/export/raport', $this->data);
+		// redirect(site_url('teacher/assessment'));
+
+		// $this->load->library('pdf');
+		// $this->pdf->load_view('teacher/export/raport', $this->data);
+		// $this->pdf->render();
+		// $this->pdf->stream('welcome.pdf');
 	}
 }
