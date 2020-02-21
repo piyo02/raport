@@ -91,7 +91,7 @@ class Assessment_services
         "name" => 'Cetak Raport',
         "type" => "link",
         "modal_id" => "print_",
-        "url" => site_url( $_page. "export_raport/"),
+        "url" => site_url( "teacher/export/index/"),
         "button_color" => "success",
         "param" => "id",
         "title" => "Mata Pelajaran",
@@ -400,6 +400,83 @@ class Assessment_services
             'type' => 'hidden',
             'label' => "Model",
             'value' => 'rating_final_model'
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+    );
+    return $table;
+  }
+  public function get_table_skill_config( $_page, $start_number = 1 )
+  {
+    $table["header"] = array(
+      'name' => 'Keterampilan',
+      'value' => 'Nilai',
+    );
+    $table["number"] = $start_number;
+    $table[ "action" ] = array(
+      array(
+        "name" => 'Edit',
+        "type" => "modal_form",
+        "modal_id" => "edit_skill_",
+        "url" => site_url( $_page."edit"),
+        "button_color" => "primary",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'student_id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'course_id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => 'rating_skill_model'
+          ),
+          "name" => array(
+            'type' => 'text',
+            'label' => "Ulangan Harian",
+          ),
+          "value" => array(
+            'type' => 'number',
+            'label' => "Nilai",
+          ),
+        ),
+        "title" => "Ulangan Harian",
+        "data_name" => "name",
+      ),
+      array(
+        "name" => 'X',
+        "type" => "modal_delete",
+        "modal_id" => "delete_skill_",
+        "url" => site_url( $_page."delete"),
+        "button_color" => "danger",
+        "param" => "id",
+        "form_data" => array(
+          'id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'student_id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'course_id' => array(
+            'type' => 'hidden',
+            'label' => "Mata Pelajaran",
+          ),
+          'model' => array(
+            'type' => 'hidden',
+            'label' => "Model",
+            'value' => 'rating_skill_model'
           ),
         ),
         "title" => "Ulangan Harian",

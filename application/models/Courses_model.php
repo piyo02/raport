@@ -166,7 +166,17 @@ class Courses_model extends MY_Model
       if ( $school_id )
         $this->where('school_id', $school_id);
       $this->order_by($this->table.'.id', 'asc');
+      $this->order_by($this->table.'.category_id', 'asc');
       return $this->fetch_data();
+  }
+  public function record_category_courses_by_school_id( $school_id = NULL )
+  {
+    $this->select('count(id) AS total');
+    if ( $school_id )
+      $this->where('school_id', $school_id);
+    $this->order_by('category_id', 'asc');
+    $this->db->group_by('category_id');
+    return $this->fetch_data();
   }
 }
 ?>

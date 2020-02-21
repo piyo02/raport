@@ -145,6 +145,7 @@ class Teacher_profile_model extends MY_Model
       'CONCAT( "'.base_url('uploads/users_photo/').'", image ) as image',
       'groups.description  as group_name',
       'groups.id  as group_id',
+      'teacher_profile.nip'
     ]);
     $this->db->join(
       "users_groups",
@@ -161,17 +162,17 @@ class Teacher_profile_model extends MY_Model
       "groups.id = users_groups.group_id",
       "inner"
     );
-    $this->join(
-      'users',
-      'users.id = teacher_profile.user_id',
-      'inner'
-    );
+    // $this->join(
+    //   'users',
+    //   'users.id = teacher_profile.user_id',
+    //   'inner'
+    // );
       if (isset($id))
       {
-        $this->where('users.id', $id);
+        $this->db->where('users.id', $id);
       }
-      $this->order_by('users.id', 'asc');
-      return $this->fetch_data();
+      $this->db->order_by('users.id', 'asc');
+      return $this->db->get('users');
   }
 
 }

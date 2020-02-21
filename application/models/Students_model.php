@@ -138,10 +138,17 @@ class Students_model extends MY_Model
    */
   public function students( $start = 0 , $limit = NULL )
   {
+    $this->select('students.*');
+    $this->select('classroom.name AS classroom_name');
       if (isset( $limit ))
       {
         $this->limit( $limit );
       }
+      $this->join(
+        'classroom',
+        'classroom.id = students.classroom_id',
+        'inner'
+      );
       $this->offset( $start );
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();

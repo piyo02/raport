@@ -146,6 +146,12 @@ class Category_model extends MY_Model
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
+  public function category_by_school_id( $school_id = NULL )
+  {
+      $this->where('school_id', $school_id);
+      $this->order_by($this->table.'.id', 'asc');
+      return $this->fetch_data();
+  }
 
 }
 ?>

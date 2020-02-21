@@ -156,7 +156,25 @@ class Rating_test_model extends MY_Model
     {
       $this->where( 'course_id', $course_id );
     }
-      $this->order_by($this->table.'.id', 'asc');
+      $this->order_by($this->table.'.course_id', 'asc');
+      return $this->fetch_data();
+  }
+  public function avg_test_student($student_id = NULL) 
+  {
+    $this->select('AVG(value) AS result');
+    $this->select('courses.category_id');
+    $this->join(
+      'courses',
+      'courses.id = ' . $this->table . '.course_id',
+      'inner'
+    );
+    if ($student_id)
+    {
+      $this->where( 'student_id', $student_id );
+    }
+    $this->db->group_by('course_id');
+    $this->order_by($this->table.'.course_id', 'asc');
+      $this->order_by('category_id', 'asc');
       return $this->fetch_data();
   }
 

@@ -27,6 +27,7 @@
                       <li class="nav-item"><a class="nav-link" href="#daily_test" data-toggle="tab">Ulangan Harian</a></li>
                       <li class="nav-item"><a class="nav-link" href="#mid" data-toggle="tab">UTS</a></li>
                       <li class="nav-item"><a class="nav-link" href="#final" data-toggle="tab">UAS</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#skill" data-toggle="tab">Keterampilan</a></li>
                       <li class="nav-item"><a class="nav-link" href="#attitude" data-toggle="tab">Sikap</a></li>
                       <?php if(isset( $guardianship )): ?>
                         <li class="nav-item"><a class="nav-link" href="#absence" data-toggle="tab">Ketidakhadiran</a></li>
@@ -126,6 +127,22 @@
                             </div>
                         </div>
                         <?php echo (isset($contents_final)) ? $contents_final : '';  ?>
+                        
+                    </div>
+                    <div class="tab-pane" id="skill">
+                        <div class="col-12 mb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                  <?= $teacher ?>
+                                </div>
+                                <div class="col-6">
+                                    <div class="float-right">
+                                        <?php echo (isset( $header_button_skill )) ? $header_button_skill : '';  ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php echo (isset($contents_skill)) ? $contents_skill : '';  ?>
                         
                     </div>
                     <div class="tab-pane" id="attitude">

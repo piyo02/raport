@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2019 at 01:20 AM
--- Server version: 5.7.28-0ubuntu0.18.04.4
--- PHP Version: 7.2.24-0ubuntu0.18.04.1
+-- Generation Time: 21 Feb 2020 pada 16.16
+-- Versi Server: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `absence`
+-- Struktur dari tabel `absence`
 --
 
 CREATE TABLE `absence` (
@@ -36,7 +36,7 @@ CREATE TABLE `absence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `absence`
+-- Dumping data untuk tabel `absence`
 --
 
 INSERT INTO `absence` (`id`, `user_id`, `student_id`, `sick`, `permission`, `without_explanation`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `absence` (`id`, `user_id`, `student_id`, `sick`, `permission`, `wit
 -- --------------------------------------------------------
 
 --
--- Table structure for table `achievement`
+-- Struktur dari tabel `achievement`
 --
 
 CREATE TABLE `achievement` (
@@ -58,7 +58,7 @@ CREATE TABLE `achievement` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assignment`
+-- Struktur dari tabel `assignment`
 --
 
 CREATE TABLE `assignment` (
@@ -71,7 +71,7 @@ CREATE TABLE `assignment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `assignment`
+-- Dumping data untuk tabel `assignment`
 --
 
 INSERT INTO `assignment` (`id`, `student_id`, `course_id`, `user_id`, `name`, `value`) VALUES
@@ -81,7 +81,7 @@ INSERT INTO `assignment` (`id`, `student_id`, `course_id`, `user_id`, `name`, `v
 -- --------------------------------------------------------
 
 --
--- Table structure for table `attitude`
+-- Struktur dari tabel `attitude`
 --
 
 CREATE TABLE `attitude` (
@@ -91,7 +91,7 @@ CREATE TABLE `attitude` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `attitude`
+-- Dumping data untuk tabel `attitude`
 --
 
 INSERT INTO `attitude` (`id`, `school_id`, `name`) VALUES
@@ -101,7 +101,7 @@ INSERT INTO `attitude` (`id`, `school_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Struktur dari tabel `category`
 --
 
 CREATE TABLE `category` (
@@ -112,7 +112,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `category`
+-- Dumping data untuk tabel `category`
 --
 
 INSERT INTO `category` (`id`, `school_id`, `name`, `description`) VALUES
@@ -122,7 +122,7 @@ INSERT INTO `category` (`id`, `school_id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classroom`
+-- Struktur dari tabel `classroom`
 --
 
 CREATE TABLE `classroom` (
@@ -134,7 +134,7 @@ CREATE TABLE `classroom` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `classroom`
+-- Dumping data untuk tabel `classroom`
 --
 
 INSERT INTO `classroom` (`id`, `user_id`, `school_id`, `name`, `description`) VALUES
@@ -144,7 +144,7 @@ INSERT INTO `classroom` (`id`, `user_id`, `school_id`, `name`, `description`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `courses`
+-- Struktur dari tabel `courses`
 --
 
 CREATE TABLE `courses` (
@@ -156,18 +156,19 @@ CREATE TABLE `courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `courses`
+-- Dumping data untuk tabel `courses`
 --
 
 INSERT INTO `courses` (`id`, `school_id`, `category_id`, `name`, `description`) VALUES
 (1, 1, 1, 'Matematika', 'Matematika Wajib'),
 (2, 1, 1, 'Agama', 'Pelajaran Agama'),
-(3, 1, 2, 'Fisika', 'Pelajaran Fisika');
+(3, 1, 2, 'Fisika', 'Pelajaran Fisika'),
+(4, 1, 1, 'Nama', '-');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `extracurricular`
+-- Struktur dari tabel `extracurricular`
 --
 
 CREATE TABLE `extracurricular` (
@@ -178,16 +179,18 @@ CREATE TABLE `extracurricular` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `extracurricular`
+-- Dumping data untuk tabel `extracurricular`
 --
 
 INSERT INTO `extracurricular` (`id`, `school_id`, `group_id`, `name`) VALUES
-(1, 1, 1, 'Pramuka');
+(1, 1, 1, 'Pramuka'),
+(2, 1, 1, 'Olahraga'),
+(3, 1, 2, 'Kesenian');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `extracurricular_group`
+-- Struktur dari tabel `extracurricular_group`
 --
 
 CREATE TABLE `extracurricular_group` (
@@ -198,16 +201,17 @@ CREATE TABLE `extracurricular_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `extracurricular_group`
+-- Dumping data untuk tabel `extracurricular_group`
 --
 
 INSERT INTO `extracurricular_group` (`id`, `school_id`, `name`, `description`) VALUES
-(1, 1, 'Ekstrakurikuler Wajib', 'Wajib diikuti semua siswa');
+(1, 1, 'Ekstrakurikuler Wajib', 'Wajib diikuti semua siswa'),
+(2, 1, 'Ekstrakurikuler Pilihan', 'Ekskul Pilihan Siswa');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Struktur dari tabel `groups`
 --
 
 CREATE TABLE `groups` (
@@ -217,7 +221,7 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `groups`
+-- Dumping data untuk tabel `groups`
 --
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
@@ -230,7 +234,7 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_attempts`
+-- Struktur dari tabel `login_attempts`
 --
 
 CREATE TABLE `login_attempts` (
@@ -243,7 +247,7 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menus`
+-- Struktur dari tabel `menus`
 --
 
 CREATE TABLE `menus` (
@@ -259,7 +263,7 @@ CREATE TABLE `menus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `menus`
+-- Dumping data untuk tabel `menus`
 --
 
 INSERT INTO `menus` (`id`, `menu_id`, `name`, `link`, `list_id`, `icon`, `status`, `position`, `description`) VALUES
@@ -278,7 +282,7 @@ INSERT INTO `menus` (`id`, `menu_id`, `name`, `link`, `list_id`, `icon`, `status
 -- --------------------------------------------------------
 
 --
--- Table structure for table `predicate_attitude`
+-- Struktur dari tabel `predicate_attitude`
 --
 
 CREATE TABLE `predicate_attitude` (
@@ -289,16 +293,17 @@ CREATE TABLE `predicate_attitude` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `predicate_attitude`
+-- Dumping data untuk tabel `predicate_attitude`
 --
 
 INSERT INTO `predicate_attitude` (`id`, `school_id`, `name`, `description`) VALUES
-(2, 1, 'A', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis, perspiciatis!');
+(2, 1, 'A', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis, perspiciatis!'),
+(3, 1, 'B', 'Baik');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `predicate_rating`
+-- Struktur dari tabel `predicate_rating`
 --
 
 CREATE TABLE `predicate_rating` (
@@ -309,16 +314,19 @@ CREATE TABLE `predicate_rating` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `predicate_rating`
+-- Dumping data untuk tabel `predicate_rating`
 --
 
 INSERT INTO `predicate_rating` (`id`, `school_id`, `name`, `description`) VALUES
-(2, 1, 'A', 'Lorem');
+(2, 1, 'A', 'Sangat Baik'),
+(3, 1, 'B', 'Baik'),
+(4, 1, 'C', 'Cukup'),
+(5, 1, 'D', 'Kurang');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_extracurricular`
+-- Struktur dari tabel `rating_extracurricular`
 --
 
 CREATE TABLE `rating_extracurricular` (
@@ -330,16 +338,18 @@ CREATE TABLE `rating_extracurricular` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rating_extracurricular`
+-- Dumping data untuk tabel `rating_extracurricular`
 --
 
 INSERT INTO `rating_extracurricular` (`id`, `student_id`, `extracurricular_id`, `name`, `description`) VALUES
-(4, 1, 1, 'A', 'Baik');
+(4, 1, 1, 'SB', 'Sangat Baik'),
+(5, 1, 2, 'B', 'Baik'),
+(6, 1, 3, 'B', 'Baik');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_final`
+-- Struktur dari tabel `rating_final`
 --
 
 CREATE TABLE `rating_final` (
@@ -352,17 +362,18 @@ CREATE TABLE `rating_final` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rating_final`
+-- Dumping data untuk tabel `rating_final`
 --
 
 INSERT INTO `rating_final` (`id`, `student_id`, `course_id`, `user_id`, `name`, `value`) VALUES
 (1, 1, 1, 20, 'UAS', 80),
-(2, 1, 2, 22, 'UAS', 88);
+(2, 1, 2, 22, 'UAS', 88),
+(3, 1, 1, 20, 'Remedial Final', 75);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_formula`
+-- Struktur dari tabel `rating_formula`
 --
 
 CREATE TABLE `rating_formula` (
@@ -373,16 +384,19 @@ CREATE TABLE `rating_formula` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rating_formula`
+-- Dumping data untuk tabel `rating_formula`
 --
 
 INSERT INTO `rating_formula` (`id`, `school_id`, `name`, `value`) VALUES
-(2, 1, 'assignment', 2);
+(2, 1, 'assignment', 2),
+(3, 1, 'test', 1),
+(4, 1, 'mid', 1),
+(5, 1, 'final', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_mid`
+-- Struktur dari tabel `rating_mid`
 --
 
 CREATE TABLE `rating_mid` (
@@ -395,7 +409,7 @@ CREATE TABLE `rating_mid` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rating_mid`
+-- Dumping data untuk tabel `rating_mid`
 --
 
 INSERT INTO `rating_mid` (`id`, `student_id`, `course_id`, `user_id`, `name`, `value`) VALUES
@@ -405,7 +419,7 @@ INSERT INTO `rating_mid` (`id`, `student_id`, `course_id`, `user_id`, `name`, `v
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_portfolio`
+-- Struktur dari tabel `rating_portfolio`
 --
 
 CREATE TABLE `rating_portfolio` (
@@ -420,7 +434,7 @@ CREATE TABLE `rating_portfolio` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_practice`
+-- Struktur dari tabel `rating_practice`
 --
 
 CREATE TABLE `rating_practice` (
@@ -435,7 +449,7 @@ CREATE TABLE `rating_practice` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_project`
+-- Struktur dari tabel `rating_project`
 --
 
 CREATE TABLE `rating_project` (
@@ -450,7 +464,29 @@ CREATE TABLE `rating_project` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_test`
+-- Struktur dari tabel `rating_skill`
+--
+
+CREATE TABLE `rating_skill` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` int(10) UNSIGNED NOT NULL,
+  `course_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `rating_skill`
+--
+
+INSERT INTO `rating_skill` (`id`, `student_id`, `course_id`, `user_id`, `name`, `value`) VALUES
+(1, 1, 1, 20, 'Keterampilan', 81);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `rating_test`
 --
 
 CREATE TABLE `rating_test` (
@@ -463,7 +499,7 @@ CREATE TABLE `rating_test` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rating_test`
+-- Dumping data untuk tabel `rating_test`
 --
 
 INSERT INTO `rating_test` (`id`, `student_id`, `course_id`, `user_id`, `name`, `value`) VALUES
@@ -473,7 +509,7 @@ INSERT INTO `rating_test` (`id`, `student_id`, `course_id`, `user_id`, `name`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schools`
+-- Struktur dari tabel `schools`
 --
 
 CREATE TABLE `schools` (
@@ -485,7 +521,7 @@ CREATE TABLE `schools` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `schools`
+-- Dumping data untuk tabel `schools`
 --
 
 INSERT INTO `schools` (`id`, `user_id`, `school_head_id`, `name`, `address`) VALUES
@@ -494,7 +530,7 @@ INSERT INTO `schools` (`id`, `user_id`, `school_head_id`, `name`, `address`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `school_head_profile`
+-- Struktur dari tabel `school_head_profile`
 --
 
 CREATE TABLE `school_head_profile` (
@@ -504,7 +540,7 @@ CREATE TABLE `school_head_profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `school_head_profile`
+-- Dumping data untuk tabel `school_head_profile`
 --
 
 INSERT INTO `school_head_profile` (`id`, `user_id`, `nip`) VALUES
@@ -513,7 +549,7 @@ INSERT INTO `school_head_profile` (`id`, `user_id`, `nip`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Struktur dari tabel `students`
 --
 
 CREATE TABLE `students` (
@@ -526,16 +562,18 @@ CREATE TABLE `students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `students`
+-- Dumping data untuk tabel `students`
 --
 
 INSERT INTO `students` (`id`, `school_id`, `name`, `nis`, `nisn`, `classroom_id`) VALUES
-(1, 1, 'Al Zidni', '12345', '00019191', 1);
+(1, 1, 'Al Zidni', '12345', '00019191', 1),
+(2, 1, 'Kharisma Yunitra', '1212', '00019192', 1),
+(3, 1, 'Zidni', '1283', '00019198', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_attitude`
+-- Struktur dari tabel `student_attitude`
 --
 
 CREATE TABLE `student_attitude` (
@@ -548,18 +586,18 @@ CREATE TABLE `student_attitude` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `student_attitude`
+-- Dumping data untuk tabel `student_attitude`
 --
 
 INSERT INTO `student_attitude` (`id`, `attitude_id`, `user_id`, `student_id`, `predicate_id`, `course_id`) VALUES
 (2, 3, 20, 1, 2, 1),
 (3, 2, 22, 1, 2, 2),
-(4, 3, 22, 1, 2, 2);
+(4, 3, 22, 1, 3, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_profile`
+-- Struktur dari tabel `student_profile`
 --
 
 CREATE TABLE `student_profile` (
@@ -574,7 +612,7 @@ CREATE TABLE `student_profile` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teacher_profile`
+-- Struktur dari tabel `teacher_profile`
 --
 
 CREATE TABLE `teacher_profile` (
@@ -585,7 +623,7 @@ CREATE TABLE `teacher_profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `teacher_profile`
+-- Dumping data untuk tabel `teacher_profile`
 --
 
 INSERT INTO `teacher_profile` (`id`, `school_id`, `user_id`, `nip`) VALUES
@@ -594,7 +632,7 @@ INSERT INTO `teacher_profile` (`id`, `school_id`, `user_id`, `nip`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -621,7 +659,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `phone`, `image`, `address`) VALUES
@@ -629,13 +667,13 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activ
 (13, '::1', 'uadmin@gmail.com', '$2y$10$78SZyvKRKMU7nPCew9w4nOpEUmJ1SeTV4L4ZG2NXXSfbEaswqoepq', 'uadmin@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1568678256, 1576342172, 1, 'admin', 'Dinas', '00', 'USER_13_1568678463.jpg', 'jln mutiara no 8'),
 (18, '::1', 'subur@gmail.com', '$2y$10$mfqzS5OmKEzpKeda8JxBce/Tli8Xkxe0kQ5N.l1lJWOGTlvHtDkbW', 'subur@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576244780, NULL, 1, 'Haji', 'Subur', '081232578168', 'default.jpg', 'Morosi'),
 (19, '::1', 'smansa_morosi@gmail.com', '$2y$10$7/nMU75i/IXjC2lrox.kqOqNsSLdLMZnEK6XyJNrzSkr18F8WSIMi', 'smansa_morosi@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576244780, 1576396800, 1, 'Admin ', 'SMAN 1 MOROSI', '081232578168', 'default.jpg', 'MOROSI'),
-(20, '::1', 'zidni@gmail.com', '$2y$10$0KyjH0yaWbjPJI/AWEufC.dnWvYdliLe2NOzhLpLiMyIn/U/7w9tq', 'zidni@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576246240, 1576426509, 1, 'Al Zidni', 'Kasim', '081232578168', 'default.jpg', 'BTN Graha Mandiri Permai Blok K/07'),
+(20, '::1', 'zidni@gmail.com', '$2y$10$0KyjH0yaWbjPJI/AWEufC.dnWvYdliLe2NOzhLpLiMyIn/U/7w9tq', 'zidni@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576246240, 1576589452, 1, 'Al Zidni', 'Kasim', '081232578168', 'default.jpg', 'BTN Graha Mandiri Permai Blok K/07'),
 (22, '::1', 'guru@gmail.com', '$2y$10$6J7.MvMNs39dLQe8HM1Mn.ashaGhvb4UFRVK9CXZnEFfs4vCqUJV.', 'guru@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1576396791, 1576426418, 1, 'Guru', 'Ku', '081232578169', 'default.jpg', 'Jalan');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users_groups`
+-- Struktur dari tabel `users_groups`
 --
 
 CREATE TABLE `users_groups` (
@@ -645,7 +683,7 @@ CREATE TABLE `users_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users_groups`
+-- Dumping data untuk tabel `users_groups`
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
@@ -822,13 +860,22 @@ ALTER TABLE `rating_project`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `rating_skill`
+--
+ALTER TABLE `rating_skill`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `rating_test`
 --
 ALTER TABLE `rating_test`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`student_id`),
   ADD KEY `course_id` (`course_id`),
-  ADD KEY `user_id_2` (`user_id`);
+  ADD KEY `user_id_2` (`user_id`),
+  ADD KEY `rating_test_ibfk_1` (`student_id`);
 
 --
 -- Indexes for table `schools`
@@ -912,7 +959,7 @@ ALTER TABLE `absence`
 -- AUTO_INCREMENT for table `achievement`
 --
 ALTER TABLE `achievement`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `assignment`
 --
@@ -937,17 +984,17 @@ ALTER TABLE `classroom`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `extracurricular`
 --
 ALTER TABLE `extracurricular`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `extracurricular_group`
 --
 ALTER TABLE `extracurricular_group`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -957,7 +1004,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `menus`
 --
@@ -967,27 +1014,27 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `predicate_attitude`
 --
 ALTER TABLE `predicate_attitude`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `predicate_rating`
 --
 ALTER TABLE `predicate_rating`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `rating_extracurricular`
 --
 ALTER TABLE `rating_extracurricular`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `rating_final`
 --
 ALTER TABLE `rating_final`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `rating_formula`
 --
 ALTER TABLE `rating_formula`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `rating_mid`
 --
@@ -1009,6 +1056,11 @@ ALTER TABLE `rating_practice`
 ALTER TABLE `rating_project`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `rating_skill`
+--
+ALTER TABLE `rating_skill`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `rating_test`
 --
 ALTER TABLE `rating_test`
@@ -1027,7 +1079,7 @@ ALTER TABLE `school_head_profile`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `student_attitude`
 --
@@ -1054,24 +1106,24 @@ ALTER TABLE `users`
 ALTER TABLE `users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `absence`
+-- Ketidakleluasaan untuk tabel `absence`
 --
 ALTER TABLE `absence`
   ADD CONSTRAINT `absence_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `absence_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
--- Constraints for table `achievement`
+-- Ketidakleluasaan untuk tabel `achievement`
 --
 ALTER TABLE `achievement`
   ADD CONSTRAINT `achievement_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
--- Constraints for table `assignment`
+-- Ketidakleluasaan untuk tabel `assignment`
 --
 ALTER TABLE `assignment`
   ADD CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
@@ -1079,59 +1131,59 @@ ALTER TABLE `assignment`
   ADD CONSTRAINT `assignment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `attitude`
+-- Ketidakleluasaan untuk tabel `attitude`
 --
 ALTER TABLE `attitude`
   ADD CONSTRAINT `attitude_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `category`
+-- Ketidakleluasaan untuk tabel `category`
 --
 ALTER TABLE `category`
   ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `classroom`
+-- Ketidakleluasaan untuk tabel `classroom`
 --
 ALTER TABLE `classroom`
   ADD CONSTRAINT `classroom_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`),
   ADD CONSTRAINT `classroom_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `courses`
+-- Ketidakleluasaan untuk tabel `courses`
 --
 ALTER TABLE `courses`
   ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   ADD CONSTRAINT `courses_ibfk_2` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `extracurricular`
+-- Ketidakleluasaan untuk tabel `extracurricular`
 --
 ALTER TABLE `extracurricular`
   ADD CONSTRAINT `extracurricular_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`),
   ADD CONSTRAINT `extracurricular_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `extracurricular_group` (`id`);
 
 --
--- Constraints for table `extracurricular_group`
+-- Ketidakleluasaan untuk tabel `extracurricular_group`
 --
 ALTER TABLE `extracurricular_group`
   ADD CONSTRAINT `extracurricular_group_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `predicate_attitude`
+-- Ketidakleluasaan untuk tabel `predicate_attitude`
 --
 ALTER TABLE `predicate_attitude`
   ADD CONSTRAINT `predicate_attitude_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `rating_extracurricular`
+-- Ketidakleluasaan untuk tabel `rating_extracurricular`
 --
 ALTER TABLE `rating_extracurricular`
   ADD CONSTRAINT `rating_extracurricular_ibfk_1` FOREIGN KEY (`extracurricular_id`) REFERENCES `extracurricular` (`id`),
   ADD CONSTRAINT `rating_extracurricular_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
--- Constraints for table `rating_final`
+-- Ketidakleluasaan untuk tabel `rating_final`
 --
 ALTER TABLE `rating_final`
   ADD CONSTRAINT `rating_final_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
@@ -1139,13 +1191,13 @@ ALTER TABLE `rating_final`
   ADD CONSTRAINT `rating_final_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `rating_formula`
+-- Ketidakleluasaan untuk tabel `rating_formula`
 --
 ALTER TABLE `rating_formula`
   ADD CONSTRAINT `rating_formula_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `rating_mid`
+-- Ketidakleluasaan untuk tabel `rating_mid`
 --
 ALTER TABLE `rating_mid`
   ADD CONSTRAINT `rating_mid_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
@@ -1153,7 +1205,7 @@ ALTER TABLE `rating_mid`
   ADD CONSTRAINT `rating_mid_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `rating_portfolio`
+-- Ketidakleluasaan untuk tabel `rating_portfolio`
 --
 ALTER TABLE `rating_portfolio`
   ADD CONSTRAINT `rating_portfolio_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
@@ -1161,7 +1213,7 @@ ALTER TABLE `rating_portfolio`
   ADD CONSTRAINT `rating_portfolio_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `rating_practice`
+-- Ketidakleluasaan untuk tabel `rating_practice`
 --
 ALTER TABLE `rating_practice`
   ADD CONSTRAINT `rating_practice_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
@@ -1169,7 +1221,7 @@ ALTER TABLE `rating_practice`
   ADD CONSTRAINT `rating_practice_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `rating_project`
+-- Ketidakleluasaan untuk tabel `rating_project`
 --
 ALTER TABLE `rating_project`
   ADD CONSTRAINT `rating_project_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
@@ -1177,28 +1229,36 @@ ALTER TABLE `rating_project`
   ADD CONSTRAINT `rating_project_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `rating_test`
+-- Ketidakleluasaan untuk tabel `rating_skill`
+--
+ALTER TABLE `rating_skill`
+  ADD CONSTRAINT `rating_skill_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `rating_skill_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `rating_skill_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `rating_test`
 --
 ALTER TABLE `rating_test`
-  ADD CONSTRAINT `rating_test_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `rating_test_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `rating_test_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `rating_test_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `schools`
+-- Ketidakleluasaan untuk tabel `schools`
 --
 ALTER TABLE `schools`
   ADD CONSTRAINT `schools_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `schools_ibfk_2` FOREIGN KEY (`school_head_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `school_head_profile`
+-- Ketidakleluasaan untuk tabel `school_head_profile`
 --
 ALTER TABLE `school_head_profile`
   ADD CONSTRAINT `school_head_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `student_attitude`
+-- Ketidakleluasaan untuk tabel `student_attitude`
 --
 ALTER TABLE `student_attitude`
   ADD CONSTRAINT `student_attitude_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
@@ -1208,20 +1268,20 @@ ALTER TABLE `student_attitude`
   ADD CONSTRAINT `student_attitude_ibfk_5` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
--- Constraints for table `student_profile`
+-- Ketidakleluasaan untuk tabel `student_profile`
 --
 ALTER TABLE `student_profile`
   ADD CONSTRAINT `student_profile_ibfk_1` FOREIGN KEY (`classroom_id`) REFERENCES `classroom` (`id`),
   ADD CONSTRAINT `student_profile_ibfk_2` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `teacher_profile`
+-- Ketidakleluasaan untuk tabel `teacher_profile`
 --
 ALTER TABLE `teacher_profile`
   ADD CONSTRAINT `teacher_profile_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
 --
--- Constraints for table `users_groups`
+-- Ketidakleluasaan untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,

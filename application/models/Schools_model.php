@@ -103,11 +103,23 @@ class Schools_model extends MY_Model
    */
   public function school( $id = NULL  )
   {
+    $this->select('schools.*');
+    $this->select('school_head_profile.nip');
+    $this->select('CONCAT( users.first_name, " ", users.last_name ) as user_fullname');
       if (isset($id))
       {
         $this->where($this->table.'.id', $id);
       }
-
+      $this->join(
+        'users',
+        'users.id = schools.school_head_id',
+        'inner'
+      );
+      $this->join(
+        'school_head_profile',
+        'school_head_profile.user_id = schools.school_head_id',
+        'inner'
+      );
       $this->limit(1);
       $this->order_by($this->table.'.id', 'desc');
 

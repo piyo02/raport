@@ -30,7 +30,12 @@ class Assessment extends Teacher_Controller {
 			'predicate_attitude_model',
 			'rating_extracurricular_model',
 			'extracurricular_model',
-			'achievement_model'
+			'achievement_model',
+			'schools_model',
+			'teacher_profile_model',
+			'rating_formula_model',
+			'predicate_rating_model',
+			'rating_skill_model',
 		));
 		$this->school_id = $this->ion_auth->get_school_id();	
 		$this->classroom_id = $this->classroom_model->classroom_by_user_id( $this->session->userdata('user_id') )->row();	
@@ -427,6 +432,54 @@ class Assessment extends Teacher_Controller {
 
 		if( $user_id == 0 || $user_id == $this->ion_auth->get_user_id())
 			$this->data[ "header_button_final" ] =  $add_rating_final;
+
+		// Rating Skill
+		$table_skill = $this->services->get_table_final_config( $this->current_page);
+		$table_skill[ "rows" ] = $this->rating_skill_model->rating_skill_by_student_id( $id, $course_id )->result();
+		if( $user_id != $this->ion_auth->get_user_id())
+			unset($table_skill['action']);
+		$table_skill = $this->load->view('templates/tables/plain_table', $table_skill, true);
+		$this->data[ "contents_skill" ] = $table_skill;
+
+		$add_rating_skill = array(
+			"name" => "Tambah Nilai",
+			"modal_id" => "add_skill_",
+			"button_color" => "primary",
+			"url" => site_url( $this->current_page."add/"),
+			"form_data" => array(
+				'model' => array(
+					'type' => 'hidden',
+					'label' => "Siswa",
+					'value' => 'rating_skill_model',
+				),
+				"student_id" => array(
+					'type' => 'hidden',
+					'label' => "Siswa",
+					'value' => $id,
+				),
+				"course_id" => array(
+					'type' => 'hidden',
+					'label' => "Mata Pelajaran",
+					'value' => $course_id,
+				),
+				"name" => array(
+					'type' => 'text',
+					'label' => "Keterampilan",
+					'value' => "",
+				),
+				"value" => array(
+					'type' => 'number',
+					'label' => "Nilai",
+					'value' => "",
+				),
+			),
+			'data' => NULL
+		);
+
+		$add_rating_skill= $this->load->view('templates/actions/modal_form', $add_rating_skill, true ); 
+
+		if( $user_id == 0 || $user_id == $this->ion_auth->get_user_id())
+			$this->data[ "header_button_skill" ] =  $add_rating_skill;
 
 		// attitude
 		$list_attitude[''] = '-- Pilih Sikap --';
@@ -846,31 +899,47 @@ class Assessment extends Teacher_Controller {
 		redirect( site_url($this->current_page) .'assessment_course?id=' . $student_id . '&course_id=' . $course_id );
 	}
 
-	public function export_raport($student_id)
+	public function export_raport($student_id = NULL)
 	{
+		if(!$student_id)
+			redirect($this->current_page);
 		//profil sekolah, guru, murid
-		$this->data['school'] = '';
-		$this->data['teacher'] = '';
-		$this->data['student'] = '';
+		$this->data['school'] = $this->schools_model->school( $this->school_id )->row();
+		$this->data['teacher'] = $this->teacher_profile_model->Teacher_profile($this->ion_auth->get_user_id())->row();
+		$this->data['student'] = $this->students_model->student( $student_id )->row();
+		// var_dump($this->data['student']); die;
+
+		//rumus pengetahuan
+		$this->data['formulas'] = $this->rating_formula_model->rating_formula_by_school_id( $this->school_id )->result();
+		//predikat pengetahuan
+		$this->data['predicate_knowledge'] = $this->predicate_rating_model->Predicate_rating_by_school_id( $this->school_id )->result();
+		
+		//mata pelajaran
+		$this->data['courses'] = $this->courses_model->courses_by_school_id( $this->school_id )->result();
 
 		//nilai pengetahuan
-		$this->data['assignment'] = '';
-		$this->data['final'] = '';
-		$this->data['mid'] = '';
-		$this->data['test'] = '';
+		$this->data['assignment'] = $this->assignment_model->avg_assignment_student( $student_id )->result();
+		$this->data['test'] = $this->rating_test_model->avg_test_student( $student_id )->result();
+		$this->data['mid'] = $this->rating_mid_model->avg_mid_student( $student_id )->result();
+		$this->data['final'] = $this->rating_final_model->avg_final_student( $student_id )->result();
+
+		//nilai keterampilan
+		$this->data['skill'] = $this->rating_skill_model->rating_skill_by_student_id( $student_id )->result();
+
 
 		// nilai sikap, prestasi, ekskul, ketidakhadiran
-		$this->data['attitude'] = '';
+		$this->data['attitude'] = $this->attitude_model->attitude_by_school_id( $this->school_id )->result();
+		foreach ($this->data['attitude'] as $key => $attitude) {
+			$student_attitude[] = $this->student_attitude_model->result_student_attitude( $student_id, $attitude->id )->row();
+		}
+		$this->data['student_attitude'] = $student_attitude;
+
+		//tambahan
 		$this->data['achievement'] = '';
 		$this->data['extracurricular'] = '';
 		$this->data['absence'] = $this->absence_model->absences_by_student_id($student_id)->row();
 		
-		$this->load->view('teacher/export/raport', $this->data);
+		$this->load->view('teacher/export/knowledge', $this->data);
 		// redirect(site_url('teacher/assessment'));
-
-		// $this->load->library('pdf');
-		// $this->pdf->load_view('teacher/export/raport', $this->data);
-		// $this->pdf->render();
-		// $this->pdf->stream('welcome.pdf');
 	}
 }

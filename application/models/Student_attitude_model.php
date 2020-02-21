@@ -162,6 +162,20 @@ class Student_attitude_model extends MY_Model
       $this->order_by($this->table.'.id', 'asc');
       return $this->fetch_data();
   }
+  public function result_student_attitude ($student_id = NULL, $attitude_id = NULL)
+  { 
+    $this->select('COUNT(predicate_id) AS total');
+    $this->select('predicate_attitude.name AS predicate');
+    $this->select('predicate_attitude.description AS description');
+    $this->join(
+      'predicate_attitude',
+      'predicate_attitude.id = student_attitude.attitude_id',
+      'inner'
+    );
+    $this->where('student_id', $student_id);
+    $this->where('attitude_id', $attitude_id);
+    return $this->fetch_data();
+  }
 
 }
 ?>
